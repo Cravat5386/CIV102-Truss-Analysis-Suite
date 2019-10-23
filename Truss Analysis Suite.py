@@ -1,4 +1,5 @@
 from math import *
+#we could try to change the significant digits
 def truss_analysis(joints_number, joint_load, deg1, deg2, orientation = "top"):
   """
   (number, number, number, number, string) -> list
