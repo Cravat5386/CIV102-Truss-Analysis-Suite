@@ -22,6 +22,7 @@ def virtual_work(member,force,area,modulus,dummy_forces):
     return total
 
 def dummy_forces(joints_number, deg1, deg2, orientation = "top"):
+#Still have to check to see if it works.
   """
   (num, num, num, string) -> list
   Given a truss, finds the dummy forces for the method of virtual work.
