@@ -15,6 +15,13 @@ def is_valid(member,force):
     return 1
 
 def virtual_work(member,force,area,modulus,dummy_forces):
+    #I streamlined this a bit. Also, we'll need a function that takes in the lists that are spit out by truss_analysis and dummy_forces
+    #and reformats them.
+    total = 0
+    for i in range(len(member)):
+        total += dummy_forces[i]*(force[i]*member[i])/(modulus*area[i])
+    return total
+    """
     work=[0 for i in range(len(member))]
     for i in range(member):
         deform[i]=(force[i]*member[i])/(modulus*area[i])
@@ -24,6 +31,7 @@ def virtual_work(member,force,area,modulus,dummy_forces):
     for j in range(work):
         total+=work[i]
     return total
+    """
 
 def dummy_forces(joints_number, deg1, deg2, orientation = "top"):
   """
