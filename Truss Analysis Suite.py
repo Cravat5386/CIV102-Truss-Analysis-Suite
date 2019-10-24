@@ -130,6 +130,59 @@ def truss_analysis(joints_number, joint_load, deg1, deg2, orientation = "top"):
   print("Remember slide rule precision!")
   return [com, ten]
 
+def force_and_length(joints_number, joint_load, deg1, deg2, length, orientation = "top"):
+  """
+  (num, num, num, num, num, string) -> (list, list)
+  Does a truss_analysis, and returns both a list of forces and the lengths of the members that are subjected by them.
+  """
+  ls = truss_analysis(joints_number, joint_load, deg1, deg2, orientation)
+  cplace = []
+  tplace = []
+  lengths = lengths(joints_number, length, deg1, deg2)
+  if joints_number % 2 == 0:
+    n = joints_number / 2 - 1
+    ran = (joints_number + 1) // 4
+    error = 1
+  else:
+    n = (joints_number - 3) / 2
+    ran = (joints_number + 1) // 4
+    error = joints_number % 4 - 1
+  if orientation == "top":
+    for i in range(ran-1):
+      cplace.append(lengths[1])
+      tplace.append(lengths[0])
+      tplace.append(lengths[2])
+      cplace.append(lengths[0])
+    if joints_number % 2 == 0:
+      cplace.pop()
+    else:
+      if error == 1:
+        cplace.pop()
+      else:
+        cplace.pop()
+        tplace.pop()
+        tplace.pop()
+      cnew = cplace.pop()
+      cplace.append(cnew/2)
+  else:
+    for i in range(ran-1):
+      tplace.append(lengths[1])
+      cplace.append(lengths[0])
+      cplace.append(lengths[2])
+      tplace.append(lengths[0])
+    if joints_number % 2 == 0:
+      tplace.pop()
+    else:
+      if error == 1:
+        tplace.pop()
+      else:
+        tplace.pop()
+        cplace.pop()
+        cplace.pop()
+      tnew = tplace.pop()
+      tplace.append(tnew)
+  return ls, [cplace, tplace]
+
 def max_force(ls, orientation = "top"):
   """
   (list, string) -> list
