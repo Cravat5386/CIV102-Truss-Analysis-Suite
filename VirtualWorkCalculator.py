@@ -1,10 +1,5 @@
 def is_valid(member,force):
     '''
-    while len(member)!=len(force):
-        (member,force)=float(input("Invalid! Please re-enter length of member and force acting:"))
-        is_valid(member,force)
-    '''
-    '''
     check if input is valid
     (list,list)->boolean
     is_valid([1,2,3,4],[5,6,6])
@@ -15,23 +10,16 @@ def is_valid(member,force):
     return 1
 
 def virtual_work(member,force,area,modulus,dummy_forces):
-    #I streamlined this a bit. Also, we'll need a function that takes in the lists that are spit out by truss_analysis and dummy_forces
-    #and reformats them.
+
+    '''
+    Uses the length of the member (member), the force acting on it (force),
+    the member's Young's modulus, and the dummy forces on each member to
+    Calculate the vertical deformation of the bridge (total)
+    '''
     total = 0
     for i in range(len(member)):
         total += dummy_forces[i]*(force[i]*member[i])/(modulus*area[i])
     return total
-    """
-    work=[0 for i in range(len(member))]
-    for i in range(member):
-        deform[i]=(force[i]*member[i])/(modulus*area[i])
-
-         #if we could change kevin's program and make them return values this part would be easy to apply truss analysis
-        work[i]=dummy_forces[i]*deform[i]
-    for j in range(work):
-        total+=work[i]
-    return total
-    """
 
 def dummy_forces(joints_number, deg1, deg2, orientation = "top"):
   """
