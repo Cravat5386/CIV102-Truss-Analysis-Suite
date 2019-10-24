@@ -20,7 +20,7 @@ def virtual_work(member,force,area,modulus,dummy_forces):
     the member's Young's modulus, and the dummy forces on each member to
     Calculate the vertical deformation of the bridge (total)
     '''
-    
+    '''
     work=[0 for i in range(len(member))]
     for i in range(member):
         deform[i]=(force[i]*member[i])/(modulus*area[i])
@@ -29,6 +29,9 @@ def virtual_work(member,force,area,modulus,dummy_forces):
         work[i]=dummy_forces[i]*deform[i]
     for j in range(work):
         total+=work[i]
+    '''
+    for i in range(len(member)):
+        total += dummy_forces[i]*(force[i]*member[i])/(modulus*area[i])
     return total
 
 def dummy_forces(joints_number, deg1, deg2, orientation = "top"):
