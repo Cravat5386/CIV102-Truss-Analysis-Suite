@@ -10,11 +10,13 @@ def is_valid(member,force):
     return 1
 
 def virtual_work(member,force,area,modulus,dummy_forces):
+
     '''
     Uses the length of the member (member), the force acting on it (force),
     the member's Young's modulus, and the dummy forces on each member to
     Calculate the vertical deformation of the bridge (total)
     '''
+    total = 0
     for i in range(len(member)):
         total += dummy_forces[i]*(force[i]*member[i])/(modulus*area[i])
     return total
