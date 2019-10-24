@@ -22,7 +22,6 @@ def virtual_work(member,force,area,modulus,dummy_forces):
         work[i]=dummy_forces[i]*deform[i]
     for j in range(work):
         total+=work[i]
-    ver_deform=total
-    return ver_deform
+    return total
         
     
