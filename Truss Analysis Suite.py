@@ -2,7 +2,7 @@ from math import *
 """
 Functions list:
 truss_analysis
-virtual_work
+virtual_work (in progress)
 force_and_length
 displacement
 max_force
