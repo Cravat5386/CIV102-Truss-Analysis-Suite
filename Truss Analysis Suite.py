@@ -2,8 +2,9 @@ from math import *
 """
 Functions list:
 truss_analysis
-force_and_length
 virtual_work
+force_and_length
+displacement
 max_force
 lengths
 hss_constraints
@@ -195,7 +196,7 @@ def force_and_length(joints_number, joint_load, deg1, deg2, length, orientation 
       tplace.append(tnew)
   return ls, [cplace, tplace]
 
-def virtual_work(member,force,area,modulus,dummy_forces):
+def displacement(member, force, area, dummy_forces, modulus = 200000):
 
     '''
     Uses the length of the member (member), the force acting on it (force),
