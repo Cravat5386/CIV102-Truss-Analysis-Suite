@@ -143,6 +143,8 @@ def truss_analysis(joints_number, joint_load, deg1, deg2, orientation = "top"):
   print("Remember slide rule precision!")
   return [com, ten]
 
+def virtual_work(joints_number, joint_load, deg1, deg2, length, orientation = "top", modulus = 200000):
+
 def force_and_length(joints_number, joint_load, deg1, deg2, length, orientation = "top"):
   """
   (num, num, num, num, num, string) -> (list, list)
