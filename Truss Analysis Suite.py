@@ -295,12 +295,12 @@ def hss_constraints(force, length, direction = "tension"):
   inertia = trunc(3 * 1000000 * force*length**2/(200000*pi**2)) / 1000
   slender = length*5
   if direction == "tension":
-    print("A > " + area + " mm2")
-    print("r > " + slender + " mm")
+    print("A > " + str(area) + " mm2")
+    print("r > " + str(slender) + " mm")
   else:
-    print("A > " + area + " mm2")
-    print("I > " + inertia + "*10^6 mm4")
-    print("r > " + slender + " mm")
+    print("A > " + str(area) + " mm2")
+    print("I > " + str(inertia) + "*10^6 mm4")
+    print("r > " + str(slender) + " mm")
 
 def is_valid(member,force):
     '''
