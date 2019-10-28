@@ -153,7 +153,7 @@ def force_and_length(joints_number, joint_load, deg1, deg2, length, orientation 
   ls = truss_analysis(joints_number, joint_load, deg1, deg2, orientation)
   cplace = []
   tplace = []
-  lengths = lengths(joints_number, length, deg1, deg2)
+  members = lengths(joints_number, length, deg1, deg2)
   if joints_number % 2 == 0:
     n = joints_number / 2 - 1
     ran = (joints_number + 1) // 4
@@ -163,39 +163,34 @@ def force_and_length(joints_number, joint_load, deg1, deg2, length, orientation 
     ran = (joints_number + 1) // 4
     error = joints_number % 4 - 1
   if orientation == "top":
-    for i in range(ran-1):
-      cplace.append(lengths[1])
-      tplace.append(lengths[0])
-      tplace.append(lengths[2])
-      cplace.append(lengths[0])
-    if joints_number % 2 == 0:
-      cplace.pop()
-    else:
-      if error == 1:
-        cplace.pop()
-      else:
-        cplace.pop()
-        tplace.pop()
-        tplace.pop()
-      cnew = cplace.pop()
-      cplace.append(cnew/2)
+    for i in range(ran):
+      cplace.append(members[1])
+      tplace.append(members[0])
+      tplace.append(members[2])
+      cplace.append(members[0])
   else:
-    for i in range(ran-1):
-      tplace.append(lengths[1])
-      cplace.append(lengths[0])
-      cplace.append(lengths[2])
-      tplace.append(lengths[0])
-    if joints_number % 2 == 0:
-      tplace.pop()
-    else:
-      if error == 1:
-        tplace.pop()
+    for i in range(ran):
+      tplace.append(members[1])
+      cplace.append(members[0])
+      cplace.append(members[2])
+      tplace.append(members[0])
+  if joints_number % 2 == 0:
+    cplace.pop()
+    tplace.pop()
+    if orientation == "top":
+      if len(members) == 4:
+        tplace.append(members[3])
       else:
-        tplace.pop()
-        cplace.pop()
-        cplace.pop()
-      tnew = tplace.pop()
-      tplace.append(tnew)
+        tplace.append(members[0])
+    else:
+      if len(members) == 4:
+        cplace.append(members[3])
+      else:
+        cplace.append(members[0])
+  else:
+    if error == 2:
+      cplace.pop()
+      tplace.pop() 
   return ls, [cplace, tplace]
 
 def displacement(member, force, area, dummy_forces, modulus = 200000):
