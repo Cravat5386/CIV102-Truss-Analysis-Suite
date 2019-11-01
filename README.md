@@ -4,7 +4,7 @@ For your changes to be considered, please include a list of added functions and 
 <br/>
 Current projects:<br/>
 Virtual Work Calculator<br/>
-Truss Full Analysis (gives the HSS constraints for all members in addition to the forces acting upon them) DONE!<br/>
+DONE! Truss Full Analysis (gives the HSS constraints for all members in addition to the forces acting upon them)<br/>
 Truss HSS Selection (does the full analysis, but also selects the HSS members for you) <br/>
 <br/>
 Pending projects:<br/>
