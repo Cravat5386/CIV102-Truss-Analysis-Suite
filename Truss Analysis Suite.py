@@ -2,6 +2,7 @@ from math import *
 """
 Functions list:
 truss_analysis
+full_analysis (gives HSS selection constraints in addition to member forces)
 virtual_work (in progress)
 force_and_length
 displacement
@@ -142,6 +143,68 @@ def truss_analysis(joints_number, joint_load, deg1, deg2, orientation = "top"):
       ten.pop()
   print("Remember slide rule precision!")
   return [com, ten]
+
+def full_analysis(joints_number, joint_load, deg1, deg2, length, orientation = "top"):
+  """
+  (number, number, number, number, number, string) -> None
+  When given the number of joints, load exerted at those joints, the bottom angles of a panel in degrees, and the length of the bridge, calculates and shows both the forces in the members and the HSS member selection constraints (area, inertia, radius of gyration).
+  """
+  (forces, members) = force_and_length(joints_number, joint_load, deg1, deg2, length, orientation)
+  if len(forces[0]) != len(members[0]) or len(forces[1]) != len(members[1]):
+    return False
+  else:
+    top = []
+    tmem = []
+    bot = []
+    bmem = []
+    if orientation == "top":
+      for i in range(1, len(forces[0]), 2):
+        top.append(forces[0][i])
+        tmem.append(members[0][i])
+      for i in range(0, len(forces[1]), 2):
+        bot.append(forces[1][i])
+        bmem.append(members[1][i])
+    else:
+      for i in range(0, len(forces[0]), 2):
+        top.append(forces[0][i])
+        tmem.append(members[0][i])
+      for i in range(1, len(forces[1]), 2):
+        bot.append(forces[1][i])
+        bmem.append(members[1][i])        
+    tmax = 0
+    maximum = 0
+    for i in range(len(top)):
+      if top[i] > maximum:
+        maximum = top[i]
+        tmax = i
+    bmax = 0
+    maximum = 0
+    for i in range(len(bot)):
+      if bot[i] > maximum:
+        maximum = bot[i]
+        bmax = i
+    print("\n HSS constraints for the top:")
+    hss_constraints(top[tmax], tmem[tmax], "compression")
+    print("\n HSS constraints for the bottom:")
+    hss_constraints(bot[bmax], bmem[bmax])
+    print("\n Compression Shear Resistor HSS constraints (outside to inside):")
+    if orientation == "top":
+      for i in range(0, len(forces[0]), 2):
+        hss_constraints(forces[0][i], members[0][i], "compression")
+        print("")
+    else:
+      for i in range(1, len(forces[0]), 2):
+        hss_constraints(forces[0][i], members[0][i], "compression")
+        print("")      
+    print("Tension Shear Resistor HSS constraints (outside to inside):")
+    if orientation == "top":
+      for i in range(1, len(forces[1]), 2):
+        hss_constraints(forces[1][i], members[1][i])
+        print("")
+    else:
+      for i in range(0, len(forces[1]), 2):
+        hss_constraints(forces[1][i], members[1][i])
+        print("")
 
 """
 def virtual_work(joints_number, joint_load, deg1, deg2, length, orientation = "top", modulus = 200000):
