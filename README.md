@@ -9,3 +9,8 @@ Truss HSS Selection (does the full analysis, but also selects the HSS members fo
 <br/>
 Pending projects:<br/>
 Dynamic Amplification Factor and Frequency functions
+
+Note: Pandas dependency required to to run the retrieveHSS package.
+
+Installation may be completed via
+`pip install pandas`
