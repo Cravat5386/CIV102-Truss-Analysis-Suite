@@ -467,4 +467,12 @@ def natural_frequency(distributed_load = True, vertical_displacement):
     return 17.75/math.sqrt(vertical_displacement)
   else:
     return 15.76/math.sqrt(vertical_displacement)
+
+def DAF(fn, f = 2, beta = 0):
+  '''
+  Calculates the dynamic amplification factor.
+  (number, number, number) --> number
+  '''
+  return (1/math.sqrt((1-f/fn)**2+(2*beta*f/fn)**2))
+
   
