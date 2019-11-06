@@ -456,3 +456,15 @@ def dummy_forces(joints_number, deg1, deg2, orientation = "top"):
       com.pop()
       ten.pop()
   return [com, ten]
+
+def natural_frequency(distributed_load = True, vertical_displacement):
+  '''
+  Calculates the natural frequency of the bridge.
+
+  (boolean, number) --> number
+  '''
+  if distributed_load:
+    return 17.75/math.sqrt(vertical_displacement)
+  else:
+    return 15.76/math.sqrt(vertical_displacement)
+  
